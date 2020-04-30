@@ -58,10 +58,10 @@ def imdb_search(movie_title, input_num=0):
         if input_num:
             title_user_index = input_num
         else:
-            title_user_index = input('\n\nPlease enter a number corresponding to your requested title')
+            title_user_index = input('\n\nPlease enter a number corresponding to your requested title: ')
 
         while int(title_user_index) not in list(range(1, 26)):
-            title_user_index = int(input('\nPlease enter a number corresponding to your requested title'))
+            title_user_index = int(input('\nPlease enter a number corresponding to your requested title: '))
 
         title_list_index = int(title_user_index) - 1
 
@@ -108,14 +108,19 @@ def imdb_search(movie_title, input_num=0):
         print('No movie found with that title')
 
 
-def dict_to_csv(dictionary):
-    with open("Results/test_results.csv", "w") as results:
+def dict_to_csv(movie_dict):
+    import os
+    if os.path.exists('Results/test_results.csv'):
+        archive_file_exists = True
+    else:
+        archive_file_exists = False
+    with open("Results/test_results.csv", "a+", newline='') as results:
         writer = csv.DictWriter(results, fieldnames=['title', 'year', 'director(s)'])
-        writer.writeheader()
+        if not archive_file_exists:
+            writer.writeheader()
 
-        # TODO -  AttributeError: 'str' object has no attribute 'keys' wrong_fields = rowdict.keys() - self.fieldnames
-        for result_list in dictionary:
-            writer.writerow(result_list)
+        writer.writerow(
+            {'title': movie_dict['title'], 'year': movie_dict['year'], 'director(s)': movie_dict['director(s)']})
 
 
 if __name__ == '__main__':

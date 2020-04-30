@@ -1,4 +1,6 @@
-from UdemyMovieArchive import imdb_crawl
+from main import imdb_crawl, search_archive
+
+# TODO - replace all text input with a GUI
 
 funcs = {
     "add": ['1', '1.', 'add', 'add a movie', 'manual', 'manually', 'movie_add'],
@@ -9,7 +11,7 @@ funcs = {
 affirmative = ['yes', 'y', 'yeah', 'yup', 'sure']
 
 run = input(
-    'What do you want to do?\n1.Add a movie manually\n2.Browse the archives\n3.Search for a movie online\n\nYour choice: ')
+    'What do you want to do?\n1.Add a movie manually\n2.Browse the local archives\n3.Search for a movie online\n\nYour choice: ')
 
 for function in funcs:
     if run in function:
@@ -30,22 +32,22 @@ if run in funcs['add']:
 elif run in funcs['view']:
 
     def archive_browse():
-        print('view the archive')
-
+        search_input = input('What will you be searching by?\n1. Title\n2. Year\n3. Director')
+        search_archive.csv_reader(search_input)
 
     archive_browse()
 
 
 elif run in funcs['search']:
 
-    def search_archive():
+    def online_search():
 
         result = imdb_crawl.imdb_search(input('Please enter the movie title you are searching for: '))
         if result:
             imdb_crawl.dict_to_csv(result)
 
 
-    search_archive()
+    online_search()
 
 else:
     print('Unrecognized input try with 1, 2 or 3')
