@@ -29,13 +29,16 @@ class Runner:
             search_input_handler()
 
         elif self.run == '3':
-            from main.imdb_crawl import dict_to_csv, imdb_search
+            import main.imdb_crawl as imdb_crawl
 
-            result = imdb_search(input('Please enter the movie title you are searching for: '))
+            request = imdb_crawl.test_request(input('Please enter the movie title you are searching for: '))
+
+            result = imdb_crawl.imdb_search(request_result=request)
+
             # TODO **
             input('Do you want to: \n\t1. Save this this to the archive\n\t2. Re-do the search?\n')
             if result:
-                dict_to_csv(result)
+                imdb_crawl.dict_to_csv(result)
 
         else:
             print('Unrecognized input try with 1, 2 or 3')
