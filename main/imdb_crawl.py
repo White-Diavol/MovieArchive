@@ -1,6 +1,3 @@
-import csv
-
-
 def request(movie_title=''):
     import requests
 
@@ -90,7 +87,7 @@ def imdb_search(request_result, input_num=0):
         elif len(directors) == 1:
             directors = directors[0]
         elif len(directors) > 1:
-            directors = " ".join(directors)
+            directors = ",".join(directors)
 
         return_dict = {'title': titles[search_list_index], 'year': year[search_list_index], "director(s)": directors}
         print('\n', return_dict)
@@ -99,26 +96,12 @@ def imdb_search(request_result, input_num=0):
         return None
 
 
-def dict_to_csv(movie_dict):
-    import os
-    if os.path.exists('Results/test_results.csv'):
-        archive_file_exists = True
-    else:
-        archive_file_exists = False
-    with open("Results/test_results.csv", "a+", newline='') as results:
-        writer = csv.DictWriter(results, fieldnames=['title', 'year', 'director(s)'])
-        if not archive_file_exists:
-            writer.writeheader()
-
-        writer.writerow(
-            {'title': movie_dict['title'], 'year': movie_dict['year'], 'director(s)': movie_dict['director(s)']})
-
-
 if __name__ == '__main__':
+    from main import csv_worker
     test_request = request('Star Wars')
     output_list = [movie for number in list(range(1, 26)) if
                    (movie := imdb_search(request_result=test_request, input_num=number)) is not None]
 
     if output_list:
         for dictionary in output_list:
-            dict_to_csv(dictionary)
+            csv_worker.csv_writer(dictionary)

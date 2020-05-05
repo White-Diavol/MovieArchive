@@ -30,6 +30,7 @@ class Runner:
 
         elif self.run == '3':
             import main.imdb_crawl as imdb_crawl
+            from main.csv_worker import csv_writer
 
             request = imdb_crawl.test_request(input('Please enter the movie title you are searching for: '))
 
@@ -38,7 +39,7 @@ class Runner:
             # TODO **
             input('Do you want to: \n\t1. Save this this to the archive\n\t2. Re-do the search?\n')
             if result:
-                imdb_crawl.dict_to_csv(result)
+                csv_writer(result)
 
         else:
             print('Unrecognized input try with 1, 2 or 3')
