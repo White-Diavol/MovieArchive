@@ -4,9 +4,9 @@ def manual_movie_add():
     while len(sanitized_movie_input) < 3:
         sanitized_movie_input.append('')
     # TODO **
-    test = {'title': sanitized_movie_input[0], 'year': sanitized_movie_input[1],
+    movie_dict = {'title': sanitized_movie_input[0], 'year': sanitized_movie_input[1],
             'director(s)': sanitized_movie_input[2]}
-    return test
+    return movie_dict
 
 
 if __name__ == '__main__':

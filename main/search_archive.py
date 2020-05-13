@@ -1,4 +1,5 @@
-def search_input_handler():
+
+def search_input_handler(print_out=True):
     from main.csv_worker import csv_reader
     options = ['title', 'year', 'director']
 
@@ -24,7 +25,8 @@ def search_input_handler():
             else:
                 input_search_value = input(f'Enter the {options[search_array_value_int]} you are looking for: ')
 
-            # testino =csv_reader(search_array_value_int, input_search_value)
+            return csv_reader(search_array_value_int, input_search_value, print_out=print_out)
+
         else:
             print('Please enter a valid number')
 

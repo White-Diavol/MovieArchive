@@ -19,7 +19,7 @@ def csv_writer(movie_dict):
             {'title': movie_dict['title'], 'year': movie_dict['year'], 'director(s)': movie_dict['director(s)']})
 
 
-def csv_reader(search_input=3, value=''):
+def csv_reader(search_input=3, value='', print_out=True):
     """
     0 = Title
     1 = Year
@@ -42,14 +42,15 @@ def csv_reader(search_input=3, value=''):
         with open('Results/test_results.csv', 'r+') as movie_archive:
 
             csv_reader_obj = csv.reader(movie_archive)
-            print(search_input)
+            # print(search_input)
             if search_input == 3:
                 for count, line in enumerate(csv_reader_obj):
                     if count == 0:
                         keys = line
                     else:
                         return_dict = dict(zip(keys, line))
-                        print(str(count) + ".", return_dict)
+                        if print_out:
+                            print(str(count) + ".", return_dict)
                         dict_list.append(return_dict)
 
             else:
@@ -57,7 +58,8 @@ def csv_reader(search_input=3, value=''):
                     if count == 0:
                         keys = line
                     elif value.lower() in line[search_input].lower():
-                        print(str(count) + ".", line)
+                        if print_out:
+                            print(str(count) + ".", line)
                         dict_list.append(dict(zip(keys, line)))
 
             return dict_list
